@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+  <div class="essays-container">
+    {% for post in posts.items %}
+
+      <article class="essay">
+
+        <div class="essay-header">
+          <h2 class="essay-title"><a href="{{  url_for('posts.confession', post_id=post.id) }}">{{ post.title }}</a></h2>
+          <span class="essay-date">{{ post.date.strftime('%d-%m-%Y') }}</span>
+        </div>
+
+        <div class="essay-author">
+          <a href="{{ url_for('posts.journal', author=post.author.username) }}">By {{ post.author.username }}</a>
+        </div>        
+
+        <div class="essay-body">
+          {{ post.content | safe }}
+        </div>
+
+        {% if post.bibliography %}
+          <div class="essay-bibliography">
+            <h3>Bibliography</h3>
+            {{ post.bibliography | safe }}
+          </div>
+        {% endif %}        
+
+      </article>
+
+    {% endfor %}
+  </div>
+
+  <div class="nav-container">
+    {% if posts.has_prev %}
+      <a href="{{ url_for('main.home', page=posts.prev_num) }}" class="logged left" >Previous</a>
+    {% endif %}
+    
+    {{ posts.page }}
+
+    {% if posts.has_next %}
+      <a href="{{ url_for('main.home', page=posts.next_num) }}" class="logged right" >Next</a>
+    {% endif %}
+  </div>
+  
+{% endblock content %}

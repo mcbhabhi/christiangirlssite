@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+  <div class="essays-container">
+
+    <article class="essay">
+
+    <div class="essay-header">
+        <h2 class="essay-title">{{ post.title }}</h2>
+        <span class="essay-date">{{ post.date.strftime('%d-%m-%Y') }}</span>
+    </div>
+
+    <div class="essay-author">
+      <a href="{{ url_for('posts.journal', author=post.author.username) }}">By {{ post.author.username }}</a>
+    </div>
+
+    <div class="essay-body">
+        {{ post.content | safe }}
+    </div>
+
+    {% if post.bibliography %}
+        <div class="essay-bibliography">
+        <h3>Bibliography</h3>
+        {{ post.bibliography | safe }}
+        </div>
+    {% endif %}        
+
+    </article>
+
+    {% if post.author == current_user %}
+      <div class="nav-container">
+          <a class="logged left" href="{{ url_for('posts.edit_post', post_id=post.id) }}">Update Confession</a>
+          <a class="logged right" href="#" onclick="document.getElementById('id01').style.display='block'">Delete Confession</a>
+          
+          <div id="id01" class="modal" style="display:none;">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+            <form class="modal-content" action="{{ url_for('posts.delete_post', post_id=post.id) }}" method="POST">
+              <div class="container">
+                <h1>Delete Confession</h1>
+                <p>Are you sure you want to delete your confession?</p>
+              
+                <div class="clearfix">
+                  <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn cancelbtn">Cancel</button>
+                  <button type="submit" class="btn deletebtn">Delete</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+      </div>
+      {% endif %}
+
+
+  </div>
+  
+{% endblock content %}
