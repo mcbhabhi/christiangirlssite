@@ -1,0 +1,5 @@
+.venv/
+venv/
+christiangirls/ENV/
+christiangirls/.env
+instance/

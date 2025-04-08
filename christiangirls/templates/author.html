@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    
+<div class="profile-section">
+    <img class="pfp" src="{{ image_file }}" alt="author picture">
+    <h2 id="author-user">{{ current_user.username }}, the lord bless you and keep you.</h2>
+</div>
+
+<hr>
+
+<div>
+    <form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        
+        <fieldset class="form-group"> 
+
+            <div class = 'form_group'>
+                {{ form.username.label(class="form-control-label") }}
+                {% if form.username.errors %}
+                    {{ form.username(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.username(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            
+            <div class = 'form_group'>
+                {{ form.email.label(class="form-control-label") }}
+                {% if form.email.errors %}
+                    {{ form.email(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <div class = 'form_group'>
+                {{ form.picture.label }}
+                {{ form.picture (class= "form-control-file") }}
+                {% if form.picture.errors %}
+                    {% for error in form.picture.errors %}
+                    <span class = 'txt_danger'>{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class = 'form_group'>
+                {{ form.update(class="btn btn-outline-info") }}
+            </div>
+
+        </fieldset>
+
+    </form>
+</div>
+            
+            
+{% endblock %}
