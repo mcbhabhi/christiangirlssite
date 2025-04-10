@@ -19,7 +19,6 @@ def send_email(user):
     msg.body = f'''
 
 To re-baptise yourself, visit {url_for('users.reset_token', token=token, _external=True)}
-
 Though your sins are like scarlet, they shall be as white as snow; though they are red as crimson, they shall be like wool.
 '''
     mail.send(msg)
