@@ -24,14 +24,7 @@
         <div class="essay-body">
           {{ post.content | safe }}
         </div>
-
-        {% if post.bibliography %}
-          <div class="essay-bibliography">
-            <h3>Bibliography</h3>
-            {{ post.bibliography | safe }}
-          </div>
-        {% endif %}        
-
+        
       </article>
 
     {% endfor %}

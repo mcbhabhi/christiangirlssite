@@ -44,7 +44,6 @@ class Post(db.Model):
     title = db.Column(db.String(100), nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=lambda: datetime.now(get_localzone()))
     content = db.Column(db.Text, nullable=False)
-    bibliography = db.Column(db.Text)
     image_file = db.Column(db.String(20), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 

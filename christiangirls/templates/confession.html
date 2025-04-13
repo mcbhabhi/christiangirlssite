@@ -16,15 +16,8 @@
       {% endif %}
       
       <div class="article-content">
-        {{ post.content|markdown }}
+        {{ post.content|markdown|safe}}
       </div>
-      
-      {% if post.bibliography %}
-      <div class="article-bibliography mt-4">
-        <h5>Bibliography</h5>
-        <p>{{ post.bibliography }}</p>
-      </div>
-      {% endif %}
       
       {% if post.author == current_user %}
         <div>

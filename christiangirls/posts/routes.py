@@ -36,7 +36,6 @@ def create():
             title=form.title.data, 
             content=form.content.data,
             author=current_user, 
-            bibliography=form.bibliography.data,
             image_file=image_file
         )
         db.session.add(essay)
@@ -75,14 +74,12 @@ def edit_post(post_id):
             post.image_file = image_file
         post.title = form.title.data
         post.content = form.content.data
-        post.bibliography = form.bibliography.data
         db.session.commit()
         flash('Confession Updated', "success")
         return redirect(url_for('posts.confession', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
-        form.bibliography.data = post.bibliography
     return render_template('confess.html', title='Edit', form=form,
                            legend='Update Post')
 
