@@ -2,12 +2,12 @@
 
 {% block content %}
 
-    <div class="profile-section">
-        <img class="pfp" src="{{ image_file }}" alt="author picture">
-        <h2 id="author-user">{{ journal_author.username }}'s confessions</h2>
-    </div>
+  <div class="profile-section">
+      <img class="pfp" src="{{ image_file }}" alt="author picture">
+      <h2 id="author-user">{{ journal_author.username }}'s confessions</h2>
+  </div>
 
-    <div class="essays-container">
+  <div class="essays-container">
     {% for post in posts.items %}
 
       <article class="essay">
@@ -19,27 +19,32 @@
 
         <div class="essay-author">
           <a href="{{ url_for('posts.journal', author=post.author.username) }}">By {{ post.author.username }}</a>
-        </div>
+        </div>        
 
-        <div class="essay-body">
-          {{ post.content | safe }}
-        </div>
-        
+        <div class="essay-preview">
+          {% set content_text = post.content|striptags %}
+          {% set clean_text = content_text|replace('#', '\n')|replace('*', '\n')|replace('>', '\n')|replace('-', '\n')|replace('|', '\n') %}
+          {% set preview = clean_text|truncate(50, true, '...') %}
+          <p>{{ preview|markdown|safe}}</p>
+        </div>        
+
       </article>
 
     {% endfor %}
   </div>
 
-  <div class="nav-container">
-    {% if posts.has_prev %}
-      <a href="{{ url_for('posts.journal', author=journal_author.username, page=posts.prev_num) }}" class="logged left" >Previous</a>
-    {% endif %}
-    
-    class="logged centre" >{{ posts.page }}
-
-    {% if posts.has_next %}
-      <a href="{{ url_for('posts.journal', author=journal_author.username, page=posts.next_num) }}" class="logged right" >Next</a>
-    {% endif %}
-  </div>
-  
 {% endblock content %}
+
+{% block footer %}
+<div class="nav-container">
+  {% if posts.has_prev %}
+    <a href="{{ url_for('main.home', page=posts.prev_num) }}" class="logged left" >Previous</a>
+  {% endif %}
+  
+  {{ posts.page }}
+
+  {% if posts.has_next %}
+    <a href="{{ url_for('main.home', page=posts.next_num) }}" class="logged right" >Next</a>
+  {% endif %}
+</div>
+{% endblock footer %}

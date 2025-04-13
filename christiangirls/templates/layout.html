@@ -50,7 +50,10 @@
       {% endwith %}
 
       {% block content %} {% endblock %}
-      {% block scripts %}{% endblock %}
+      {% block scripts %} {% endblock %}
+      <footer class="site-footer">
+        {% block footer %}{% endblock %}
+      </footer>
 
       </main>
     </div>
