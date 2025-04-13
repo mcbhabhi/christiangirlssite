@@ -1,4 +1,7 @@
-@font-face {
+/* ==========================================
+   1. GLOBAL STYLES & FONTS
+   ========================================== */
+   @font-face {
     font-family: 'SignPainter';
     src: url('/static/fonts/SignPainter-HouseScript.ttf') format('truetype');
 }
@@ -18,6 +21,39 @@ body {
     padding: 20px;
 }
 
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #444; 
+    margin: 10px 0 10px;
+}
+
+/* Links */
+a {
+    color: #8B0000; 
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #600000;
+    text-decoration: none;
+}
+
+/* Utility classes */
+.hidden {
+    display: none;
+}
+
+.clearfix {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* ==========================================
+   2. HEADER & NAVIGATION
+   ========================================== */
 header {
     display: flex;
     justify-content: space-between;
@@ -25,17 +61,12 @@ header {
     margin-bottom: 10px;
 }
 
-#gif {
-    max-height: 200px;
-    max-width: 300px;
-    object-fit: contain;
-}
-
-.gif-container {
-    max-height: 50px; 
-    width: auto; 
-    display: block;
-    overflow: hidden;
+/* Add blinking effect for page title */
+@keyframes titleBlink {
+    0% { color: #8B0000; } /* Red */
+    33% { color: #185813; } /* Green */
+    66% { color: #600000; } /* Dark red */
+    100% { color: #8B0000; } /* Back to red */
 }
 
 .site-title h1 {
@@ -43,9 +74,32 @@ header {
     font-size: 3rem;
     font-weight: 100;
     margin: 0;
-    color: #8B0000; 
+    color: #8B0000;
+    animation: titleBlink 3s infinite;
 }
 
+.site-image img {
+    max-height: 120px;
+    /* Removed border-radius */
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 0 20px 0;
+}
+
+.logged {
+    font-size: 13px;
+    color: #185813;
+    font-style: italic;
+    text-decoration: none;
+}
+
+/* ==========================================
+   3. PROFILE PAGE
+   ========================================== */
 #author-user{
     font-family: 'SignPainter-HouseScript', cursive;
     font-size: 2rem;
@@ -73,47 +127,24 @@ header {
     color: #600000;
 }
 
-.site-image img {
-    max-height: 120px;
-    border-radius: 4px;
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px 0 20px 0;
-}
-
-.logged {
-    font-size: 13px;
-    color: #185813;
-    font-style: italic;
-    text-decoration: none;
-}
-
-hr {
-    border: 0;
-    height: 1px;
-    background-color: #444; 
-    margin: 10px 0 10px;
-}
-
-/* Form styling */
+/* ==========================================
+   4. FORMS & INPUTS
+   ========================================== */
 form {
     max-width: 500px;
     margin: 0 auto;
     background-color: #ffffff;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border: 1px solid #999;
+    /* Removed border-radius */
+    box-shadow: none;
     position: relative;
 }
 
 fieldset {
-    border: 1px solid #ddd;
+    border: 1px solid #999;
     padding: 30px;
-    border-radius: 10px;
+    /* Removed border-radius */
     background-color: #ffffff;
 }
 
@@ -140,75 +171,62 @@ legend {
 }
 
 .form-control {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    padding: 8px;
+    border: 1px solid #999;
+    /* Removed border-radius */
     font-family: inherit;
     font-size: 16px;
     background-color: #fff;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: none;
 }
 
+.custom-content-box {
+    height: 300px;
+    width: 100%;
+    resize: vertical;
+}
+
+/* Buttons */
 .btn {
     background-color: #8B0000; 
     color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
+    padding: 5px 10px;
+    border: 1px solid #600000;
+    /* Removed border-radius */
     cursor: pointer;
     font-family: inherit;
     font-size: 16px;
     margin-top: 10px;
     margin-bottom: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    transition: background-color 0.3s;
+    box-shadow: none;
+    transition: none;
 }
 
 .btn:hover {
     background-color: #600000; 
 }
 
-/* Alert messages */
-.alert-container {
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    text-align: center;
+.cancelbtn {
+    background-color: #185813; /* Changed to green */
+    color: white;
+    border: 1px solid #0d3e07;
 }
 
-.alert {
-    color: #8B0000;
-    font-size: 16px;
-    padding: 15px 25px;
+.cancelbtn:hover {
+    background-color: #0d3e07; /* Darker green on hover */
 }
 
-/* Links */
-a {
-    color: #8B0000; 
-    text-decoration: none;
-    font-weight: bold;
+.deletebtn {
+    background-color: #8B0000; /* Changed to match site red */
+    border: 1px solid #600000;
+    color: white;
 }
 
-a:hover {
-    text-align: center;
-    color: #2b2b2b;
-    text-decoration: none;
+.deletebtn:hover {
+    background-color: #600000; /* Darker red on hover */
 }
 
-.border-top {
-    margin: 0 auto;
-    text-align: center;
-    margin-top: 20px;
-    padding-top: 15px;
-}
-
-.text-muted {
-    margin: 10px auto;
-    color: #666; 
-    font-style: italic;
-}
-
-/* Error messages */
+/* Form validation */
 .invalid-feedback {
     color: #8B0000; 
     margin-top: 5px;
@@ -220,7 +238,26 @@ a:hover {
     border-color: #8B0000; 
 }
 
-/* Posts container */
+/* ==========================================
+   5. ALERTS & NOTIFICATIONS
+   ========================================== */
+.alert-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.alert {
+    color: #8B0000;
+    font-size: 16px;
+    padding: 15px 25px;
+}
+
+/* ==========================================
+   6. ESSAYS/POSTS PAGE
+   ========================================== */
+/* Common styles for both home and confession pages */
 .essay-body {
     white-space: pre-line;
 }
@@ -229,21 +266,23 @@ a:hover {
     margin-top: 15px;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
 }
 
-/* Post styles */
 .essay {
     background-color: #ffffff; 
-    border-radius: 10px;
+    border: 1px solid #999;
+    /* Removed border-radius */
     padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: none;
 }
 
 .essay-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .essay-title {
@@ -251,48 +290,101 @@ a:hover {
     font-size: 1.5rem;
     color: #8B0000; 
     cursor: pointer;
-    transition: color 0.2s;
 }
 
 .essay-title:hover {
-    color: #600000; 
+    color: #600000; /* Darker color on hover */
+}
+
+.essay-title a {
+    color: inherit;
+    text-decoration: none;
 }
 
 .essay-date {
     color: #1a6f13; 
     font-style: italic;
+    font-size: 0.9rem;
+}
+
+.essay-author {
+    margin-bottom: 15px;
+    font-size: 1rem;
 }
 
 .essay-author a {
     color: #1a6f13; 
+    font-weight: normal;
+}
+
+.essay-author a:hover {
+    color: #0d3e07; /* Darker color on hover */
 }
 
 .essay-content {
+    border-top: 1px solid #999;
+    padding-top: 5px; /* Reduced padding */
+    margin-top: 5px; /* Reduced margin */
+}
+
+.essay-preview {
+    margin-top: 10px;
+    color: #555;
+}
+
+.essay-image {
+    margin: 15px 0;
+}
+
+.essay-image img {
+    max-width: 100%;
+    border: 1px solid #999;
+    /* Removed border-radius */
+}
+
+/* Update and Delete links - styled as text links */
+.essay-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
     border-top: 1px solid #ddd;
+    padding-top: 10px;
 }
 
-.custom-content-box {
-    height: 300px;
-    width: 100%;
-    resize: vertical;
+.essay-actions a, 
+.essay-actions button {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
 }
 
-
-/* Utility classes */
-.hidden {
-    display: none;
+.essay-actions a {
+    color: #185813; /* Green for update */
 }
 
-/* Footer */
-footer {
-    margin-top: 50px;
-    text-align: center;
-    color: #666; 
-    font-size: 0.9rem;
-    font-style: italic;
+.essay-actions a:hover {
+    color: #0d3e07; /* Darker green on hover */
+    background: none; /* No background on hover */
 }
 
-/* Modal styles */
+.essay-actions button {
+    color: #8B0000; /* Red for delete */
+}
+
+.essay-actions button:hover {
+    color: #600000; /* Darker red on hover */
+    background: none; /* No background on hover */
+}
+
+/* ==========================================
+   7. MODALS
+   ========================================== */
 .modal {
     display: none;
     position: fixed;
@@ -309,10 +401,23 @@ footer {
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid #999;
     width: 80%;
     max-width: 500px;
-    border-radius: 10px;
+    /* Removed border-radius */
+    box-shadow: none;
+}
+
+.modal-content h3 {
+    color: #8B0000;
+    margin-top: 0;
+    text-align: center;
+    font-family: 'Times New Roman', serif;
+}
+
+.modal-content p {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .close {
@@ -329,21 +434,58 @@ footer {
     text-decoration: none;
 }
 
-.clearfix {
+/* Modal buttons */
+.modal .clearfix {
+    text-align: center;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 20px;
+}
+
+.modal .btn {
+    display: inline-block;
+    padding: 5px 15px;
+    font-size: 14px;
+    margin: 0 5px;
+    /* Removed border-radius */
+}
+
+.modal form {
+    display: inline;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* ==========================================
+   8. FOOTER
+   ========================================== */
+footer {
+    margin-top: 50px;
+    text-align: center;
+    color: #666; 
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.border-top {
+    margin: 0 auto;
+    text-align: center;
     margin-top: 20px;
+    padding-top: 15px;
 }
 
-.cancelbtn {
-    background-color: #ccc;
+.text-muted {
+    margin: 10px auto;
+    color: #666; 
+    font-style: italic;
 }
 
-.deletebtn {
-    background-color: #f44336;
-}
-
-
+/* ==========================================
+   9. MEDIA QUERIES
+   ========================================== */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
@@ -354,12 +496,35 @@ footer {
         margin-top: 20px;
     }
 
-    .post-header {
+    .essay-header {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .post-date {
+    .essay-date {
         margin-top: 5px;
     }
+    
+    .essay-actions {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+/* ==========================================
+   10. DECORATIVE ELEMENTS
+   ========================================== */
+#gif {
+    max-height: 200px;
+    max-width: 300px;
+    object-fit: contain;
+    border: 1px solid #999;
+    /* Removed border-radius */
+}
+
+.gif-container {
+    max-height: 50px; 
+    width: auto; 
+    display: block;
+    overflow: hidden;
 }
