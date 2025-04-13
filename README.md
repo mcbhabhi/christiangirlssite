@@ -1,6 +1,6 @@
 # ChristianGirls
 
-Simple blog site.
+Your very own church of confessions
 
 ## Setup
 
@@ -8,7 +8,7 @@ Simple blog site.
 
 ```bash
 git clone <repo-url>
-cd christiangirls
+cd christiangirlssite
 ```
 
 2. **Create a `.env` file**
@@ -47,4 +47,4 @@ app.app_context().push()
 db.create_all()
 ```
 
-You're all set.
+Start praying
