@@ -3,7 +3,7 @@
 {% block content %}
 
 <div>
-    <form method="POST" action="">
+    <form method="POST" action="" enctype="multipart/form-data">
         
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
@@ -12,9 +12,9 @@
                 See, I am doing a new thing! Now it springs up; do you not perceive it? I am making a way in the wilderness and streams in the wasteland.
             </legend>
 
-            <div class = 'form_group'>
+            <div class='form_group'>
                 {{ form.title.label(class="form-control-label") }}
-                {% if form.title.errortitle %}
+                {% if form.title.errors %}
                     {{ form.title(class="form-control form-control-lg is-invalid") }}
                     <div class="invalid-feedback">
                         {% for error in form.title.errors %}
@@ -26,21 +26,24 @@
                 {% endif %}
             </div>
             
-            <div class = 'form_group'>
+            <div class='form_group'>
                 {{ form.content.label(class="form-control-label") }}
+                <div class="markdown-help small text-muted mb-2">
+                    Markdown formatting supported: **bold**, *italic*, [links](http://example.com), etc.
+                </div>
                 {% if form.content.errors %}
-                    {{ form.content(class="form-control form-control-lg is-invalid") }}
+                    {{ form.content }}
                     <div class="invalid-feedback">
                         {% for error in form.content.errors %}
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ form.content(class="form-control form-control-lg") }}
+                    {{ form.content}}
                 {% endif %}
             </div>
 
-            <div class = 'form_group'>
+            <div class='form_group'>
                 {{ form.bibliography.label(class="form-control-label") }}
                 {% if form.bibliography.errors %}
                     {{ form.bibliography(class="form-control form-control-lg is-invalid") }}
@@ -54,7 +57,17 @@
                 {% endif %}
             </div>
             
-            <div class = 'form_group'>
+            <div class='form_group'>
+                {{ form.image.label(class="form-control-label") }}
+                {{ form.image(class="form-control-file") }}
+                {% if form.image.errors %}
+                    {% for error in form.image.errors %}
+                        <span class="text-danger">{{ error }}</span><br>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            
+            <div class='form_group mt-4'>
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
 
@@ -62,5 +75,10 @@
 
     </form>
 </div>
+
+{% block scripts %}
+    {{ super() }}
+    {{ pagedown.include_pagedown() }}
+{% endblock %}
 
 {% endblock %}

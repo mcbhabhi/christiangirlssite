@@ -1,4 +1,7 @@
-from flask import Blueprint, render_template, url_for, flash, redirect, request, abort
+import os
+import secrets
+from PIL import Image
+from flask import Blueprint, render_template, url_for, flash, redirect, request, abort, current_app
 from christiangirls import db
 from christiangirls.models import User, Post
 from flask_login import current_user, login_required
@@ -7,13 +10,35 @@ from christiangirls.posts.forms import Create
 
 posts = Blueprint('posts', __name__)
 
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(current_app.root_path, 'static/post_images', picture_fn)
+
+    output_size = (800, 800)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+    
+    return picture_fn
+
 
 @posts.route('/journal/confess', methods=['GET', 'POST'])
 @login_required
 def create():
     form = Create()
     if form.validate_on_submit():
-        essay = Post(title=form.title.data, content=form.content.data, author=current_user, bibliography=form.bibliography.data)
+        image_file = None
+        if form.image.data:
+            image_file = save_picture(form.image.data)
+        essay = Post(
+            title=form.title.data, 
+            content=form.content.data,
+            author=current_user, 
+            bibliography=form.bibliography.data,
+            image_file=image_file
+        )
         db.session.add(essay)
         db.session.commit()
         flash('Your essay has been created!', 'success')
@@ -45,6 +70,9 @@ def edit_post(post_id):
         abort(403)
     form = Create()
     if form.validate_on_submit():
+        if form.image.data:
+            image_file = save_picture(form.image.data)
+            post.image_file = image_file
         post.title = form.title.data
         post.content = form.content.data
         post.bibliography = form.bibliography.data
